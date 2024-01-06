@@ -1,33 +1,32 @@
-import torch
 import click
+import torch
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 
 @click.group()
 def cli():
     """Command line interface."""
     pass
 
+
 @click.command()
 @click.argument("model")
-@click.option('--data-path', default='data/processed', help='Path to load data from')
-
+@click.option("--data-path", default="data/processed", help="Path to load data from")
 def evaluate(model, data_path):
     """Evaluate a trained model."""
     print("Evaluating like my life dependends on it")
     print(model)
 
-    model = torch.load(f'models/{model}')
+    model = torch.load(f"models/{model}")
 
-    test_set = torch.load(f'{data_path}/test_data.pt', map_location=device)
-    test_dataloader = torch.utils.data.DataLoader(
-        test_set, batch_size=64, shuffle=False
-    )
+    test_set = torch.load(f"{data_path}/test_data.pt", map_location=device)
+    test_dataloader = torch.utils.data.DataLoader(test_set, batch_size=64, shuffle=False)
 
     model.eval()
 
-    test_preds = [ ]
-    test_labels = [ ]
+    test_preds = []
+    test_labels = []
 
     with torch.no_grad():
         for batch in test_dataloader:
@@ -43,5 +42,6 @@ def evaluate(model, data_path):
 
     print((test_preds == test_labels).float().mean())
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     evaluate()
