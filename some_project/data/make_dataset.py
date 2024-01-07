@@ -1,5 +1,7 @@
 import click
 import torch
+import glob
+import os
 
 
 @click.group()
@@ -11,13 +13,19 @@ def cli():
 def generate_mnist_dataset(load_path):
     """Return train and test dataloaders for MNIST."""
 
-    # load train data into dict
-    x_train_raw = {i: torch.load(f"{load_path}/train_images_{i}.pt") for i in range(6)}
-    y_train_raw = {i: torch.load(f"{load_path}/train_target_{i}.pt") for i in range(6)}
+    #check how many files there are and load them all
+    train_images = glob.glob(os.path.join(load_path, 'train_images_*.pt'))
+    train_targets = glob.glob(os.path.join(load_path, 'train_target_*.pt'))
 
-    # combine train data
-    x_train = torch.cat([x_train_raw[i] for i in range(6)], dim=0).unsqueeze(1)
-    y_train = torch.cat([y_train_raw[i] for i in range(6)], dim=0)
+    train_images.sort()
+    train_targets.sort()
+
+    x_train_raw = {i: torch.load(image_file) for i, image_file in enumerate(train_images)}
+    y_train_raw = {i: torch.load(target_file) for i, target_file in enumerate(train_targets)}
+
+    # Combine train data dynamically
+    x_train = torch.cat([x_train_raw[i] for i in x_train_raw], dim=0).unsqueeze(1)
+    y_train = torch.cat([y_train_raw[i] for i in y_train_raw], dim=0)
 
     # load test data
     x_test = torch.load(f"{load_path}/test_images.pt").unsqueeze(1)
