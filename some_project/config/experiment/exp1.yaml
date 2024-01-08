@@ -1,0 +1,6 @@
+# @package _group_
+data_path: 'data/processed/'
+batch_size: 64
+lr: 0.03
+n_epochs: 5
+seed: 123

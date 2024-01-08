@@ -1,0 +1,4 @@
+# @package _group_
+conv1_dim: 32
+conv2_dim: 64
+conv3_dim: 128
