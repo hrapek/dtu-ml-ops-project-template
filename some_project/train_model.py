@@ -14,7 +14,9 @@ checkpoint_callback = ModelCheckpoint(
 )
 
 #trainer wiht wandb logger
-trainer = pl.Trainer(accelerator="gpu", max_epochs=2, logger=pl.loggers.WandbLogger(project="dtu_mlops"))
+trainer = pl.Trainer(accelerator="gpu", max_epochs=5, 
+                     callbacks=[checkpoint_callback],
+                     logger=pl.loggers.WandbLogger(project="dtu_mlops"))
 
 if __name__ == "__main__":
     trainer.fit(model, data)

@@ -38,9 +38,12 @@ class MyAwesomeModel(LightningModule):
     
     def configure_optimizers(self):
         return optim.Adam(self.parameters(), lr=0.03)
-
+    
     def test_step(self, batch):
-        loss, acc = self._shared_eval_step(batch)
+        data, target = batch
+        preds = self(data)
+        loss = self.criterium(preds, target)
+        acc = (target == preds.argmax(dim=-1)).float().mean()
         metrics = {"test_acc": acc, "test_loss": loss}
         self.log_dict(metrics)
         return metrics   
