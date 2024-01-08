@@ -1,7 +1,9 @@
-import torch
 import glob
 import os
+
 import pytorch_lightning as pl
+import torch
+
 
 class MNISTDataModule(pl.LightningDataModule):
     def __init__(self, load_path="data/raw/corruptmnist/", save_path="data/processed/"):
@@ -10,7 +12,7 @@ class MNISTDataModule(pl.LightningDataModule):
         self.save_path = save_path
 
     def setup(self, stage=None):
-        if stage == 'fit' or stage is None:
+        if stage == "fit" or stage is None:
             train, test = self.generate_mnist_dataset(self.load_path)
             torch.save(train, f"{self.save_path}/train_data.pt")
             torch.save(test, f"{self.save_path}/test_data.pt")
@@ -18,9 +20,9 @@ class MNISTDataModule(pl.LightningDataModule):
     def generate_mnist_dataset(self, load_path):
         """Return train and test dataloaders for MNIST."""
 
-        #check how many files there are and load them all
-        train_images = glob.glob(os.path.join(load_path, 'train_images_*.pt'))
-        train_targets = glob.glob(os.path.join(load_path, 'train_target_*.pt'))
+        # check how many files there are and load them all
+        train_images = glob.glob(os.path.join(load_path, "train_images_*.pt"))
+        train_targets = glob.glob(os.path.join(load_path, "train_target_*.pt"))
 
         train_images.sort()
         train_targets.sort()
