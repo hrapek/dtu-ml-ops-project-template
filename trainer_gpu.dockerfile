@@ -1,5 +1,5 @@
 # Base image
-FROM python:3.11.5-slim
+FROM  nvcr.io/nvidia/pytorch:22.07-py3
 
 # install python
 RUN apt update && \
@@ -7,13 +7,14 @@ RUN apt update && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
 # copyting eseentials
+COPY some_project/ some_project/
 COPY requirements.txt requirements.txt
 COPY pyproject.toml pyproject.toml
-COPY some_project/ some_project/
 COPY data/ data/
 
 # directory
 WORKDIR /
+RUN ls -l
 RUN pip install -r requirements.txt --no-cache-dir
 RUN pip install . --no-deps --no-cache-dir
 
