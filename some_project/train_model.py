@@ -9,12 +9,12 @@ data = MNISTDataModule()
 model = MyAwesomeModel()  # LightningModule
 
 # monitor model checkpoints
-checkpoint_callback = ModelCheckpoint(dirpath="./models", monitor="train_loss", mode="min")
+checkpoint_callback = ModelCheckpoint(dirpath='./models', monitor='train_loss', mode='min')
 
 # trainer wiht wandb logger
 trainer = pl.Trainer(
-    accelerator="gpu", max_epochs=5, callbacks=[checkpoint_callback], logger=pl.loggers.WandbLogger(project="dtu_mlops")
+    accelerator='gpu', max_epochs=5, callbacks=[checkpoint_callback], logger=pl.loggers.WandbLogger(project='dtu_mlops')
 )
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     trainer.fit(model, data)

@@ -8,12 +8,12 @@ from models.model import MyAwesomeModel
 data = MNISTDataModule()
 
 # checkpoint location
-checkpoint_name = "epoch=2-step=2346.ckpt"
-checkpoint_path = f"models/{checkpoint_name}"
+checkpoint_name = 'epoch=2-step=2346.ckpt'
+checkpoint_path = f'models/{checkpoint_name}'
 
 # model abd trainer
 model = MyAwesomeModel.load_from_checkpoint(checkpoint_path)  # LightningModule
 trainer = pl.Trainer()
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     trainer.test(model, data)
