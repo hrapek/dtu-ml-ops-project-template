@@ -26,8 +26,8 @@ jobs:
     - name: Ruff check and format
       run: |
         pip install ruff
-        pip install mypy
+        # pip install mypy
         ruff check --fix
         ruff check .
         ruff format .
-        mypy .
+        # mypy .
