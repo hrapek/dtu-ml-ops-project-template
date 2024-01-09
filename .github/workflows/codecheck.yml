@@ -27,6 +27,7 @@ jobs:
       run: |
         pip install ruff
         pip install mypy
+        ruff check --fix
         ruff check .
         ruff format .
         mypy .
