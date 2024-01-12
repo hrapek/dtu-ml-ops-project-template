@@ -180,3 +180,5 @@ dtu_mlops/*
 lightning_logs/*
 wandb/*
 models/*
+
+gc_publickey
