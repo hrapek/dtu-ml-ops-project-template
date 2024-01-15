@@ -6,14 +6,16 @@ RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
+# directory
+WORKDIR /
+
 # copyting eseentials
 COPY requirements.txt requirements.txt
 COPY pyproject.toml pyproject.toml
 COPY some_project/ some_project/
 COPY data/ data/
 
-# directory
-WORKDIR /
+# run commands
 RUN pip install -r requirements.txt --no-cache-dir
 RUN pip install . --no-deps --no-cache-dir
 
