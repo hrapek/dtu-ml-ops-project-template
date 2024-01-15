@@ -16,4 +16,4 @@ model = MyAwesomeModel.load_from_checkpoint(checkpoint_path)  # LightningModule
 trainer = pl.Trainer()
 
 if __name__ == '__main__':
-    trainer.test(model, data)
+    trainer.predict(model, data)
