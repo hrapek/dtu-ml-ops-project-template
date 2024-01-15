@@ -13,6 +13,7 @@ WORKDIR /
 COPY requirements.txt requirements.txt
 COPY pyproject.toml pyproject.toml
 COPY some_project/ some_project/
+COPY .dvc/ .dvc/
 COPY data.dvc data.dvc
 
 # run commands
